@@ -1,3 +1,4 @@
+```typescript
 /**
  * Basic math utilities
  */
@@ -25,8 +26,9 @@ export function fibonacci(n: number): number {
 
 export function isPrime(n: number): boolean {
   if (n < 2) return false;
-  for (let i = 2; i < n; i++) { // could be optimized to sqrt(n)
+  for (let i = 2; i <= Math.sqrt(n); i++) { // optimized to sqrt(n)
     if (n % i === 0) return false;
   }
   return true;
 }
+```
