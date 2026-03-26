@@ -1,3 +1,4 @@
+```typescript
 /**
  * User API handlers
  */
@@ -20,8 +21,14 @@ export function getUserById(id: string): User | undefined {
 }
 
 export function createUser(name: string, email: string): User {
-  // TODO: validate email format
-  // TODO: check for duplicate emails
+  if (!validateEmail(email)) {
+    throw new Error('Invalid email format.');
+  }
+  
+  if (isDuplicateEmail(email)) {
+    throw new Error('Duplicate email.');
+  }
+
   const user: User = {
     id: Math.random().toString(36).slice(2), // not cryptographically secure
     name,
@@ -30,6 +37,15 @@ export function createUser(name: string, email: string): User {
   };
   users.push(user);
   return user;
+}
+
+function validateEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+function isDuplicateEmail(email: string): boolean {
+  return users.some(u => u.email === email);
 }
 
 export function deleteUser(id: string): boolean {
@@ -41,3 +57,5 @@ export function deleteUser(id: string): boolean {
 
 // TODO: add updateUser function
 // TODO: add pagination to getUsers
+
+```
